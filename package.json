@@ -26,6 +26,9 @@
   },
   "homepage": "https://github.com/asitaru/ebate#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "method-override": "^2.3.8",
+    "mongoose": "^4.9.3"
   }
 }
