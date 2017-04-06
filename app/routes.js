@@ -1,33 +1,30 @@
-let Ebate = require('./models/ebate');
+const getController = require('./controllers/get-controller');
+const postController = require('./controllers/post-controller');
+const deleteController = require('./controllers/delete-controller');
+const voteController = require('./controllers/vote-controller')
 
 module.exports = function(app) {
 
     //get all ebates
-    app.get('/api/ebates', async(req,res) => {
+    app.get('/api/ebates', getController);
 
-        try {
+    //get one ebate
+    app.get('/api/ebates/:ebate_id', getController.singleQuery)
 
-            //use mongoose to get all ebates from db
-            let ebates = await Ebate.find();
-
-            //if there are no ebates in db, return that to the server
-            if(!ebates) res.status(400).json({ error : "No ebates in the database yet!" });
-
-            //return all ebates in json format
-            res.json(ebates);
-        }
-        catch(err) {
-
-            //if there is an error retrieving, send the error
-            err => res.status(500).json({ error: err})
-        }
-
-    });
+    //get ebates by user TODO
+    app.get('/api/ebates/user/:username', getController.userQuery);
 
     //create an ebate
+    app.post('/api/ebates/', postController);
+
+    //vote in the ebate
+    app.put('/api/ebates/:ebate_id', voteController);
+
+    //delete the ebate
+    app.delete('/api/ebates/:ebate_id', deleteController);
 
     app.get('*', (req,res) => {
-        res.send("WORKING!");
+        res.redirect('/api/ebates');
         //res.sendFile('./public/views/index.html');
     });
 }
