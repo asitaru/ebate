@@ -4,7 +4,6 @@ let Ebate = require('../models/ebate');
 module.exports = async(req, res) => {
 
     try {
-
         //use mongoose to get all ebates from db
         let ebates = await Ebate.find();
 
@@ -15,7 +14,6 @@ module.exports = async(req, res) => {
         res.json(ebates);
     }
     catch(err) {
-
         //if there is an error retrieving, send the error
         err => res.status(500).json({ error: err});
     }
@@ -24,9 +22,8 @@ module.exports = async(req, res) => {
 
 //selects one ebate based on id
 module.exports.singleQuery = async(req, res) => {
-
+    
     try {
-
         //use mongoose to find the ebate with the provided id
         let ebate = await Ebate.findById(req.params.ebate_id);
 
@@ -34,7 +31,7 @@ module.exports.singleQuery = async(req, res) => {
         res.json(ebate);
     }
     catch(err) {
-
+        //Send any errors
         err => res.status(500).json({ error: err});
     }
 };
@@ -46,7 +43,7 @@ module.exports.userQuery = async(req, res) => {
 
     }
     catch(err) {
-
+        //Send any errors
         err => res.status(500).json({ error: err});
     }
 };

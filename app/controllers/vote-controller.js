@@ -16,7 +16,6 @@ let uniqueUser = user => {
 module.exports = async(req,res) => {
 
     try {
-
         //find the ebate in the database using the id
         let ebate = await Ebate.findById(req.params.ebate_id);
 
@@ -41,12 +40,8 @@ module.exports = async(req,res) => {
         //return a succesfull message upon update
         res.json({ message: "Ebate updated!" });
 
-
-
-
     }
     catch(err) {
-
         //Send any errors
         err => res.status(500).json({ error: err });
     }

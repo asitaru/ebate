@@ -8,18 +8,15 @@ module.exports = async(req,res) => {
     ebate.ownerId = req.body.userId;
     req.body.options.forEach( option => ebate.options.push({name: option, votes: []}));
     console.log(ebate);
-    
-    try {
 
+    try {
         //try saving the ebate
         await ebate.save();
 
         //return a succesfull message upon insertion
         res.json({ message: 'Ebate created!'});
-
     }
     catch(err) {
-
         //if there is an error creating, send the error
         err => res.status(500).json({ error: err});
     }

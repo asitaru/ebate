@@ -4,7 +4,6 @@ const deleteController = require('./controllers/delete-controller');
 const voteController = require('./controllers/vote-controller')
 
 module.exports = function(app) {
-
     //get all ebates
     app.get('/api/ebates', getController);
 
