@@ -2,13 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Ebates</title>
 
-</head>
-<body>
+    <!-- CSS -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
 
-    Landing Page
+    <!-- JS -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+
+    <!-- Angular -->
+    <script src="js/controllers/main-controller.js"></script>
+    <script src="js/app.js"></script>
+
+</head>
+<body ng-app ="ebate" ng-controller="MainController" >
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <nav class="navbar navbar-default ">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Ebates</a>
+            </div>
+
+            <!-- Angular routing -->
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">My Polls</a></li>
+                <li><a href="/">New Poll</a></li>
+                <li><a href="/">Sign In</a></li>
+            </ul>
+        </nav>
+
+        <!-- ANGULAR DYNAMIC CONTENT -->
+        <div ng-view></div> 
+
+    </div>
 
 </body>
 </html>
