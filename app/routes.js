@@ -23,7 +23,6 @@ module.exports = function(app) {
     app.delete('/api/ebates/:ebate_id', deleteController);
 
     app.get('*', (req,res) => {
-        res.redirect('/api/ebates');
-        //res.sendFile('./public/views/index.html');
+        res.sendFile('./public/views/index.html');
     });
 }
