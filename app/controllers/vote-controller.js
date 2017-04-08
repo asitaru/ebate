@@ -14,7 +14,7 @@ let uniqueUser = user => {
 }
 
 module.exports = async(req,res) => {
-
+    console.log(req.body.option)
     try {
         //find the ebate in the database using the id
         let ebate = await Ebate.findById(req.params.ebate_id);

@@ -1,6 +1,6 @@
-angular.module('ebate.controllers.MainController', [])
-    .controller('MainController', function($scope, $http) {
-
+angular.module('ebate.controllers.main', [])
+    .controller('main', function($scope, $http, $location, Poll) {
+        //Get all the ebates from the database
         $http.get('/api/ebates').then(
 
             //get the ebates
@@ -11,5 +11,10 @@ angular.module('ebate.controllers.MainController', [])
             err => {
                 console.log('Error: ' +  err);
             })
+
+        //
+        $scope.selectEbate = function(ebate){
+            $location.path("/" + ebate._id);
+        }
 
     });

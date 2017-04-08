@@ -1,3 +1,19 @@
-<div ng-repeat = "ebate in ebates">
-    {{ebate.name}}
+<div class="jumbotron">
+    <div class="row">
+        <h1 class="text-center">Ebate</h1>
+    </div>
+    <div class="row">
+        <p class="text-center"> Select a poll to see the results and vote,<a>&nbsp; or create your own!</a></p>
+    </div>
+    <div ng-repeat="ebate in ebates">
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-default btn-lg btn-block" ng-click = selectEbate(ebate)>
+                    <span class="glyphicon glyphicon-check pull-left" aria-hidden="true"></span>
+                    {{ebate.name}}
+                </button>
+            </div>
+        </div>
+
+    </div>
 </div>

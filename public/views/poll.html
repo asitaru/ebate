@@ -1,0 +1,20 @@
+<div>
+    <div class="row  jumbotron">
+
+        <div class="col-xs-6">
+            <div class="row text-center">
+                {{ebate.name}}
+            </div>
+
+            <div class="row spacer" ng-repeat="option in ebate.options">
+                <button class="btn btn-default btn-block" ng-click=vote(option)>Vote for: {{option.name}}</button>
+            </div>
+        </div>
+
+
+        <div class="col-xs-6">
+            <canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" chart-colors="colors"></canvas>
+        </div>
+    </div>
+
+</div>

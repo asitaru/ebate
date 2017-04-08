@@ -1,4 +1,4 @@
-var app = angular.module('ebate', ['ngRoute', 'ebate.controllers.MainController']);
+var app = angular.module('ebate', ['ngRoute', 'ebate.controllers.main', 'ebate.controllers.poll','ebate.services.poll']);
 
 
 app.config(['$routeProvider', '$locationProvider',
@@ -8,7 +8,11 @@ app.config(['$routeProvider', '$locationProvider',
 
             when('/', {
                 templateUrl: 'views/home.html',
-                controller: 'MainController'
-            });
+                controller: 'main'
+            }).
+            when('/:pollId', {
+                templateUrl: 'views/poll.html',
+                controller: 'poll'
+            })
         }
     ]);
