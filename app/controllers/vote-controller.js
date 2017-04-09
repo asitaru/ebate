@@ -1,41 +1,43 @@
 let Ebate = require('../models/ebate');
 
 //function that validates the uniqueness of a vote
-let uniqueVote = (votes, ip, user ) => {
-    return votes.every ( vote => vote.IP != ip && vote.user != user)
+let uniqueVote = (votersArray, ip, user ) => {
+    if(user){
+        return votersArray.indexOf(ip) === -1 && votersArray.indexOf(user) === -1
+    }
+    return votersArray.indexOf(user) === -1;
 };
 
-//helper function that helps to avoid counting 2 unauthenticated users as not unique
-let uniqueUser = user => {
-    if( user === undefined) {
-        return null;
+//helper function that stores the IPs and Users that voted
+let storeVoters = (votersArray, ip, user) => {
+    votersArray.push(ip);
+    if(user) {
+        votersArray.push(user);
     }
-    return user;
 }
 
 module.exports = async(req,res) => {
-    console.log(req.body.option)
     try {
         //find the ebate in the database using the id
         let ebate = await Ebate.findById(req.params.ebate_id);
 
-        //identify the proper vote list
-        let voteArray = ebate.options[parseInt(req.body.option)].votes;
-
         //validate the uniqueness of the vote
-        if(!uniqueVote(voteArray, req.connection.remoteAddress, req.body.userId) ) {
+        if(!uniqueVote(ebate.ipAndUsersVoted, req.connection.remoteAddress, req.body.userId) ) {
             res.json({ error: "not unique!" });
             return
         }
 
-        //insert the user that just voted
-        voteArray.push({
-            IP: req.connection.remoteAddress,
-            user: uniqueUser(req.body.userId)
-        });
+        //identify the proper vote list and increment it
+        ebate.options[parseInt(req.body.option)].votes += 1;
+        console.log(ebate.options[parseInt(req.body.option)])
+
+        //insert the ip/user that just voted
+        storeVoters(ebate.ipAndUsersVoted, req.connection.remoteAddress, req.body.userId);
+
 
         //try updating the ebate
         await ebate.save();
+        console.log("Saved!");
 
         //return a succesfull message upon update
         res.json({ message: "Ebate updated!" });

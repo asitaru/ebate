@@ -6,7 +6,7 @@ module.exports = async(req,res) => {
     let ebate = new Ebate();
     ebate.name = req.body.name;
     ebate.ownerId = req.body.userId;
-    req.body.options.forEach( option => ebate.options.push({name: option, votes: []}));
+    req.body.options.forEach( option => ebate.options.push({name: option, votes: 0}));
     console.log(ebate);
 
     try {
