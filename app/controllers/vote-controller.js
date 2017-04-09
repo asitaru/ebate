@@ -5,7 +5,7 @@ let uniqueVote = (votersArray, ip, user ) => {
     if(user){
         return votersArray.indexOf(ip) === -1 && votersArray.indexOf(user) === -1
     }
-    return votersArray.indexOf(user) === -1;
+    return votersArray.indexOf(ip) === -1;
 };
 
 //helper function that stores the IPs and Users that voted
@@ -47,5 +47,18 @@ module.exports = async(req,res) => {
         //Send any errors
         err => res.status(500).json({ error: err });
     }
+
+module.exports.addOption = async(req,res) => {
+    try{
+        //find the ebate in the database using the id
+        let ebate = await Ebate.findById(req.params.ebate_id);
+
+        //add the option
+        ebate.options.push({ name:req.body.option , votes: 0 );
+
+
+
+    }
+}
 
 };

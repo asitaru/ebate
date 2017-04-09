@@ -1,5 +1,5 @@
 angular.module('ebate.controllers.poll', ["chart.js"])
-    .controller('poll', function($scope, $http, $routeParams, $location, Poll) {
+    .controller('poll', function($scope,$route, $http, $routeParams, $location, Poll) {
         //get the poll id from url
         $scope.pollId = $routeParams.pollId;
 
@@ -24,7 +24,7 @@ angular.module('ebate.controllers.poll', ["chart.js"])
             $scope.colors = ['#45b7cd', '#ff6384', '#ff8e72'];
             $scope.ebate.options.forEach( function(option) {
                 $scope.labels.push(option.name);
-                $scope.data.push(option.votes.length);
+                $scope.data.push(option.votes);
             })
         };
 
@@ -38,12 +38,17 @@ angular.module('ebate.controllers.poll', ["chart.js"])
 
             $http.put('/api/ebates/' + $scope.pollId, request).then(
 
-                function() {
-                    console.log("Voted!");
-                    $location.path("/" + $scope.pollId);
+                function(response) {
+                    if(response.data.error) {
+                        alert("User/IP already voted!")
+                    }
+                    else {
+                        console.log(response.data.message);
+                        $route.reload();
+                    }
                 },
-                function() {
-                    alert("Error!")
+                function(response) {
+                    alert("Could not vote at this time");
                 }
 
             )

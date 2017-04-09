@@ -19,6 +19,9 @@ module.exports = function(app) {
     //vote in the ebate
     app.put('/api/ebates/:ebate_id', voteController);
 
+    //add an option
+    app.put('api/ebates/:ebate_id/add', voteController.addOption);
+
     //delete the ebate
     app.delete('/api/ebates/:ebate_id', deleteController);
 
