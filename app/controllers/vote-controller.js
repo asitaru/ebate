@@ -14,7 +14,7 @@ let storeVoters = (votersArray, ip, user) => {
     if(user) {
         votersArray.push(user);
     }
-}
+};
 
 module.exports = async(req,res) => {
     try {
@@ -48,17 +48,27 @@ module.exports = async(req,res) => {
         err => res.status(500).json({ error: err });
     }
 
-module.exports.addOption = async(req,res) => {
+};
+
+//vote with a different option
+module.exports.newOption = async(req,res) => {
     try{
         //find the ebate in the database using the id
         let ebate = await Ebate.findById(req.params.ebate_id);
 
-        //add the option
-        ebate.options.push({ name:req.body.option , votes: 0 );
+        //add the option, vote and insert ip/username
+        ebate.options.push({ name:req.body.option , votes: 1 });
+        storeVoters(ebate.ipAndUsersVoted, req.connection.remoteAddress, req.body.userId);
 
+        //try updating the ebate
+        await ebate.save();
+        console.log("option updated!");
 
+        //return succesfull message upon update
+        res.json({ message: "Ebate updated!" });
 
     }
-}
-
+    catch(err) {
+        err => res.status(500).json({ error: err});
+    }
 };

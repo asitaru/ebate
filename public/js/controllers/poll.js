@@ -3,19 +3,6 @@ angular.module('ebate.controllers.poll', ["chart.js"])
         //get the poll id from url
         $scope.pollId = $routeParams.pollId;
 
-        //get the poll data from backend
-        $http.get('/api/ebates/' + $scope.pollId).then(
-
-            data => {
-                $scope.ebate = data.data;
-                $scope.chartConstructor();
-
-            },
-            err => {
-                console.log('Error: ' + err);
-            }
-        );
-
         //function that builds the chart
         $scope.chartConstructor = function(){
             $scope.labels = [];
@@ -28,6 +15,20 @@ angular.module('ebate.controllers.poll', ["chart.js"])
             })
         };
 
+        //get the poll data from backend
+        $http.get('/api/ebates/' + $scope.pollId).then(
+            //on succesfull retrieval, store the data and build a chart based on it
+            data => {
+                $scope.ebate = data.data;
+                $scope.chartConstructor();
+
+            },
+            err => {
+                console.log('Error: ' + err);
+            }
+        );
+
+        //Vote on predefined category function
         $scope.vote = function(option){
 
             var request = {
@@ -36,12 +37,15 @@ angular.module('ebate.controllers.poll', ["chart.js"])
 
             }
 
+            //update promise
             $http.put('/api/ebates/' + $scope.pollId, request).then(
 
                 function(response) {
+                    //alert if the user already voted
                     if(response.data.error) {
                         alert("User/IP already voted!")
                     }
+                    //refresh the page to see the result if the vote went trough
                     else {
                         console.log(response.data.message);
                         $route.reload();
