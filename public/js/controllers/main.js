@@ -21,14 +21,15 @@ angular.module('ebate.controllers.main', [])
         }
 
         $scope.login = function(user) {
-            return $http.get('api/login').then(
-                data => {
-                    Authentication.saveToken(data.token);
-                },
-                error => {
-                    alert("Could not find account!");
-                }
-            )
+            // return $http.get('api/login').then(
+            //     data => {
+            //         Authentication.saveToken(data.token);
+            //     },
+            //     error => {
+            //         alert("Could not find account!");
+            //     }
+            // )
+            console.log("logged in!");
         };
 
         $scope.logout = function() {
