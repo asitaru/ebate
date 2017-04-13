@@ -3,6 +3,8 @@ let app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const passport = require('passport');
+const session = require('express-session');
 
 //config files
 var db = require('./config/db');
@@ -18,6 +20,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//passport configuration
+require('./app/controllers/user-controller')(passport);
+
+//required for passport
+app.use(session({ secret: 'fmlthisentireauththingiscrazy'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 // simulate DELETE/PUT
 app.use(methodOverride('X-HTTP-Method-Override'));
 
@@ -25,7 +35,7 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public'));
 
 // routes
-require('./app/routes')(app);
+require('./app/routes')(app, passport);
 
 //start server
 app.listen(app.get('port'), () => console.log('App is running on port', app.get('port')));

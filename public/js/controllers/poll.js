@@ -1,5 +1,5 @@
 angular.module('ebate.controllers.poll', ["chart.js"])
-    .controller('poll', function($scope,$route, $http, $routeParams, $location, Poll) {
+    .controller('poll', function($scope,$route, $http, $routeParams, $location) {
         //get the poll id from url
         $scope.pollId = $routeParams.pollId;
 
@@ -7,7 +7,7 @@ angular.module('ebate.controllers.poll', ["chart.js"])
         $scope.chartConstructor = function(){
             $scope.labels = [];
             $scope.data = [];
-            $scope.options = {legend : { display: true, position: 'bottom', labels: {fontSize: 30, boxWidth:30, fontFamily: "sans-serif"}}}
+            $scope.options = {legend : { display: true, position: 'bottom', labels: {fontSize: 25, boxWidth:25, fontFamily: "sans-serif"}}}
             $scope.colors = ['#45b7cd', '#ff6384', '#ff8e72'];
             $scope.ebate.options.forEach( function(option) {
                 $scope.labels.push(option.name);
@@ -43,7 +43,7 @@ angular.module('ebate.controllers.poll', ["chart.js"])
                 function(response) {
                     //alert if the user already voted
                     if(response.data.error) {
-                        alert("User/IP already voted!")
+                        alert("You can only vote once per poll!")
                     }
                     //refresh the page to see the result if the vote went trough
                     else {

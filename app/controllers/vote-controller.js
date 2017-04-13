@@ -25,14 +25,17 @@ module.exports = async(req,res) => {
         if(!uniqueVote(ebate.ipAndUsersVoted, req.connection.remoteAddress, req.body.userId) ) {
             res.json({ error: "not unique!" });
             return
-        }
+        };
 
         //identify the proper vote list and increment it
         ebate.options[parseInt(req.body.option)].votes += 1;
-        console.log(ebate.options[parseInt(req.body.option)])
+        console.log(ebate.options[parseInt(req.body.option)]);
+
+        //determine the ip of the client
+        let ip = req.ip || req.connection.remoteAddress;
 
         //insert the ip/user that just voted
-        storeVoters(ebate.ipAndUsersVoted, req.connection.remoteAddress, req.body.userId);
+        storeVoters(ebate.ipAndUsersVoted, ip, req.body.userId);
 
 
         //try updating the ebate
@@ -56,9 +59,18 @@ module.exports.newOption = async(req,res) => {
         //find the ebate in the database using the id
         let ebate = await Ebate.findById(req.params.ebate_id);
 
+        //determine the ip of the client
+        let ip = req.ip || req.connection.remoteAddress;
+
+        //validate the uniqueness of the vote
+        if(!uniqueVote(ebate.ipAndUsersVoted, ip, req.body.userId) ) {
+            res.json({ error: "not unique!" });
+            return
+        };
+
         //add the option, vote and insert ip/username
         ebate.options.push({ name:req.body.option , votes: 1 });
-        storeVoters(ebate.ipAndUsersVoted, req.connection.remoteAddress, req.body.userId);
+        storeVoters(ebate.ipAndUsersVoted, ip, req.body.userId);
 
         //try updating the ebate
         await ebate.save();

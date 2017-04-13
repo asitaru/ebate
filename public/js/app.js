@@ -1,4 +1,4 @@
-var app = angular.module('ebate', ['ngRoute', 'ebate.controllers.main', 'ebate.controllers.poll','ebate.services.poll']);
+var app = angular.module('ebate', ['ngRoute', 'ebate.controllers.main', 'ebate.controllers.poll','ebate.services.authentication']);
 
 
 app.config(['$routeProvider', '$locationProvider',

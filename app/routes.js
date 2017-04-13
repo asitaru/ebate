@@ -2,8 +2,9 @@ const getController = require('./controllers/get-controller');
 const postController = require('./controllers/post-controller');
 const deleteController = require('./controllers/delete-controller');
 const voteController = require('./controllers/vote-controller');
+const userController = require('./controllers/user-controller');
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
     //get all ebates
     app.get('/api/ebates', getController);
 
@@ -25,7 +26,31 @@ module.exports = function(app) {
     //delete the ebate
     app.delete('/api/ebates/:ebate_id', deleteController);
 
+    //login with twitter
+    app.get('/api/login', passport.authenticate('twitter'));
+    app.get('api/login/success', passport.authenticate('twitter', {
+        successRedirect: '/',
+        failureRedirect: '/'
+    }));
+
+    //logout
+    app.get('/api/logout', (req,res) => {
+        req.logout();
+        res.redirect('/api/ebates');
+    })
+
+    //route middleware to check if user is logged in
+    function isLoggedIn(req, res, next) {
+        //if user is authenticated, carry on
+        if (req.isAuthenticated()) {
+            return next();
+        }
+
+        //return to homepage if not
+        res.redirect('/');
+    }
+
     app.get('*', (req,res) => {
-        res.sendFile('/views/index.html');
+        res.sendFile('/index.html');
     });
 }
