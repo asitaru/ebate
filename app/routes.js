@@ -4,8 +4,6 @@ const deleteController = require('./controllers/delete-controller');
 const voteController = require('./controllers/vote-controller');
 const userController = require('./controllers/user-controller');
 
-const twitterKeys = require('../config/auth');
-
 module.exports = function(app, passport) {
     //get all ebates
     app.get('/api/ebates', getController);
@@ -41,21 +39,7 @@ module.exports = function(app, passport) {
         res.redirect('/api/ebates');
     })
 
-    //route middleware to check if user is logged in
-    function isLoggedIn(req, res, next) {
-        //if user is authenticated, carry on
-        if (req.isAuthenticated()) {
-            return next();
-        }
-
-        //return to homepage if not
-        res.redirect('/');
-    }
-
-    app.get('/test', (req,res) => {
-        res.send(twitterKeys);
-    })
-
+    //main route
     app.get('/', (req,res) => {
         res.sendFile('/index.html');
     });

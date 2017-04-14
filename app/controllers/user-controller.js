@@ -2,6 +2,23 @@ let twitterStrategy = require('passport-twitter').Strategy;
 let User = require('../models/user');
 const twitterKeys = require('../../config/auth');
 
+//helper function that handles the user creation using information retrieved by twitter
+let populateUser = (user, profile, token) => {
+    user.userId = profile.id;
+    user.token = token;
+    user.displayName = profile.displayName;
+};
+
+//route middleware to check if user is logged in
+module.exports.isLoggedIn = (req, res, next) => {
+    //if user is authenticated, carry on
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    //return to homepage if not
+    res.redirect('/');
+};
+
 module.exports = function(passport) {
 
     // serialize the user for the session
@@ -16,64 +33,34 @@ module.exports = function(passport) {
         });
     });
 
+    //passport configuration
     passport.use(new twitterStrategy({
         consumerKey: twitterKeys.consumerKey,
         consumerSecret: twitterKeys.consumerSecret,
         callbackURL: twitterKeys.callbackURL
     },
+    //function that handles the returned user
     (token, tokenSecret, profile, done) => {
+        //try to find the user in the db
         User.findOne({ 'userId' : profile.id }).then(
             user => {
                 if(user) {
+                    //if a user is found, return it
                     return done(null, user);
                 }
                 else {
+                    //if not, create a new user
                     let newUser = new User();
-                    newUser.userId = profile.id;
-                    newUser.token = token;
-                    newUser.displayName = profile.displayName;
-
+                    populateUser(newUser, profile, token);
+                    //afterwards try to save the user in the db and handle errors
                     newUser
                         .save()
+                        //return the success function if user saved or the rejection one if there was an error
                         .then( () => done(null, newUser))
                         .catch( err => done(err));
                 }
             }
+        //handle any erros left from user querying
         ).catch( err => done(err));
-    }
-    // async(token, tokenSecret, profile, done) => {
-    //
-    //     try {
-    //         //search the user
-    //         let user = await User.findById(profile.id);
-    //
-    //         //if an user is found, return it
-    //         if(user) {
-    //             return done(null, user);
-    //         }
-    //         //create the user if it doesn't exist
-    //         else {
-    //             let newUser = new User();
-    //             newUser.id = profile.id;
-    //             newUser.token = token;
-    //             newUser.displayName = profile.displayName;
-    //
-    //             //try to save the user
-    //             try {
-    //                 await newUser.save();
-    //
-    //                 return done(null, newUser);
-    //             }
-    //             catch(err) {
-    //                 throw err;
-    //             }
-    //         }
-    //
-    //
-    //     }
-    //     catch(err) {
-    //         return done(err);
-    //     }
-    // }
-));
+    }));
 };
