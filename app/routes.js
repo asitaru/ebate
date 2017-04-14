@@ -33,7 +33,7 @@ module.exports = function(app, passport) {
     app.get('api/login/success', passport.authenticate('twitter', {
         successRedirect: '/',
         failureRedirect: '/'
-    }));
+    }), (req,res) => {});
 
     //logout
     app.get('/api/logout', (req,res) => {
