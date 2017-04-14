@@ -22,14 +22,14 @@ module.exports = function(passport) {
         callbackURL: twitterKeys.callbackURL
     },
     (token, tokenSecret, profile, done) => {
-        User.findById(profile.id).then(
+        User.findOne({ 'userId' : profile.id }).then(
             user => {
                 if(user) {
                     return done(null, user);
                 }
                 else {
                     let newUser = new User();
-                    newUser.id = profile.id;
+                    newUser.userId = profile.id;
                     newUser.token = token;
                     newUser.displayName = profile.displayName;
 

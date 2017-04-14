@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 const UserSchema = new Schema({
-    id: String,
+    userId: String,
     token: String,
     displayName: String
 });
