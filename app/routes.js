@@ -30,10 +30,10 @@ module.exports = function(app, passport) {
 
     //login with twitter
     app.get('/api/login', passport.authenticate('twitter'));
-    app.get('api/login/success', passport.authenticate('twitter', {
+    app.get('/api/login/success', passport.authenticate('twitter', {
         successRedirect: '/',
         failureRedirect: '/'
-    }), (req,res) => {});
+    }));
 
     //logout
     app.get('/api/logout', (req,res) => {
