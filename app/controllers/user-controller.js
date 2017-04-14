@@ -16,38 +16,64 @@ module.exports = function(passport) {
         });
     });
 
-    passport.use(new twitterStrategy(twitterKeys, async(token, tokenSecret, profile, done) => {
-
-        try {
-            //search the user
-            let user = await User.findById(profile.id);
-
-            //if an user is found, return it
-            if(user) {
-                return done(null, user);
-            }
-            //create the user if it doesn't exist
-            else {
-                let newUser = new User();
-                newUser.id = profile.id;
-                newUser.token = token;
-                newUser.displayName = profile.displayName;
-
-                //try to save the user
-                try {
-                    await newUser.save();
-
-                    return done(null, newUser);
+    passport.use(new twitterStrategy({
+        consumerKey: twitterKeys.consumerKey,
+        consumerSecret: twitterKeys.consumerSecret,
+        callbackURL: twitterKeys.callbackURL
+    },
+    (token, tokenSecret, profile, done) => {
+        User.findById(profile.id).then(
+            user => {
+                if(user) {
+                    return done(null, user);
                 }
-                catch(err) {
-                    throw err;
+                else {
+                    let newUser = new User();
+                    newUser.id = profile.id;
+                    newUser.token = token;
+                    newUser.displayName = profile.displayName;
+
+                    newUser
+                        .save()
+                        .then( () => done(null, newUser))
+                        .catch( err => done(err));
                 }
             }
-
-
-        }
-        catch(err) {
-            return done(err);
-        }
-    }));
+        ).catch( err => done(err));
+    }
+    // async(token, tokenSecret, profile, done) => {
+    //
+    //     try {
+    //         //search the user
+    //         let user = await User.findById(profile.id);
+    //
+    //         //if an user is found, return it
+    //         if(user) {
+    //             return done(null, user);
+    //         }
+    //         //create the user if it doesn't exist
+    //         else {
+    //             let newUser = new User();
+    //             newUser.id = profile.id;
+    //             newUser.token = token;
+    //             newUser.displayName = profile.displayName;
+    //
+    //             //try to save the user
+    //             try {
+    //                 await newUser.save();
+    //
+    //                 return done(null, newUser);
+    //             }
+    //             catch(err) {
+    //                 throw err;
+    //             }
+    //         }
+    //
+    //
+    //     }
+    //     catch(err) {
+    //         return done(err);
+    //     }
+    // }
+));
 };

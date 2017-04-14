@@ -24,7 +24,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require('./app/controllers/user-controller')(passport);
 
 //required for passport
-app.use(session({ secret: 'fmlthisentireauththingiscrazy'}));
+app.use(session({
+    secret: 'fmlthisentireauththingiscrazy',
+    resave: true,
+    saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 

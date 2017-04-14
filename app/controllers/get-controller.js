@@ -22,18 +22,42 @@ module.exports = async(req, res) => {
 
 //selects one ebate based on id
 module.exports.singleQuery = async(req, res) => {
-    
-    try {
-        //use mongoose to find the ebate with the provided id
-        let ebate = await Ebate.findById(req.params.ebate_id);
+    //APPARENTLY, USING AWAIT ON findById WITH AN INEXISTENT ID MAKES THE REQUEST RUN FOREVER
+    //TODO RESEARCH THE REASON , WILL USE PROMISE UNTILL THEN
 
-        //return the ebate to frontend
-        res.json(ebate);
-    }
-    catch(err) {
-        //Send any errors
-        err => res.status(500).json({ error: err});
-    }
+    // try {
+    //     console.log(0);
+    //     //use mongoose to find the ebate with the provided id
+    //     let ebate = await Ebate.findById(req.params.ebate_id);
+    //     console.log(1);
+    //     //return the ebate to frontend if there is one
+    //     if(!ebate){
+    //         res.status(400).json({ error: "no ebate with this id!"});
+    //     }
+    //     else {
+    //         res.json(ebate);
+    //         console.log(ebate);
+    //     }
+    // }
+    // catch(err) {
+    //     //Send any errors
+    //     err => res.status(500).json({ error: err});
+    // }
+
+    //search the ebate in the db
+    Ebate.findById(req.params.ebate_id)
+        //return if any ebate could be found
+        .then(ebate => {
+            if(!ebate){
+                res.status(400).json({ error: "no ebate with this id!"});
+            }
+            else {
+                res.json(ebate);
+                console.log(ebate);
+            }
+        //return any db error
+        }).catch( err => res.status(500).json({ error: err}))
+
 };
 
 //selects all ebates created by an user

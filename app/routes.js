@@ -4,6 +4,8 @@ const deleteController = require('./controllers/delete-controller');
 const voteController = require('./controllers/vote-controller');
 const userController = require('./controllers/user-controller');
 
+const twitterKeys = require('../config/auth');
+
 module.exports = function(app, passport) {
     //get all ebates
     app.get('/api/ebates', getController);
@@ -50,7 +52,11 @@ module.exports = function(app, passport) {
         res.redirect('/');
     }
 
-    app.get('*', (req,res) => {
+    app.get('/test', (req,res) => {
+        res.send(twitterKeys);
+    })
+
+    app.get('/', (req,res) => {
         res.sendFile('/index.html');
     });
 }

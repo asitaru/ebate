@@ -1,5 +1,5 @@
 angular.module('ebate.controllers.poll', ["chart.js"])
-    .controller('poll', function($scope,$route, $http, $routeParams, $location) {
+    .controller('poll', function($scope,$route, $http, $routeParams, $location, $timeout) {
         //get the poll id from url
         $scope.pollId = $routeParams.pollId;
 
@@ -24,7 +24,8 @@ angular.module('ebate.controllers.poll', ["chart.js"])
 
             },
             err => {
-                console.log('Error: ' + err);
+                alert("Wrong path!")
+                $timeout($location.path('/'), 1000);
             }
         );
 
