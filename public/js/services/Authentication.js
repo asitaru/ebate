@@ -1,20 +1,20 @@
 angular.module('ebate.services.authentication', [])
     .service('Authentication', function( $http, $window) {
 
-        var saveToken = function(token) {
-            $window.localStorage['token'] = token;
+        var saveUser = function(user) {
+            $window.localStorage['user'] = user;
         };
 
-        var getToken = function() {
-            return $window.localStorage['token'];
+        var getUser = function() {
+            return $window.localStorage['user'];
         };
 
         logout = function() {
-            $window.localStorage.removeItem('token');
+            $window.localStorage.removeItem('user');
         };
 
         isLoggedIn = function() {
-            if(getToken()) {
+            if(getUser()) {
                 return true;
             }
             else {
@@ -23,8 +23,8 @@ angular.module('ebate.services.authentication', [])
         }
 
         return {
-            saveToken: saveToken,
-            getToken: getToken,
+            saveToken: saveUser,
+            getToken: getUser,
             isLoggedIn: isLoggedIn,
             logout: logout
         };
