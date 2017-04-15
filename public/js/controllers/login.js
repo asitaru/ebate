@@ -1,7 +1,7 @@
 angular.module('ebate.controllers.login', [])
     .controller('login', function( $scope, $location, $timeout, Authentication) {
 
-        $http.get('/fetchUser').then(
+        $http.get('/api/login/success').then(
 
             user => {
                 Authentication.saveUser(user);
