@@ -37,6 +37,11 @@ module.exports = function(app, passport) {
     app.get('/api/logout', (req,res) => {
         req.logout();
         res.redirect('/api/ebates');
+    });
+
+    //test route
+    app.get('/test', (req,res) => {
+        res.send(req.user);
     })
 
     //main route
