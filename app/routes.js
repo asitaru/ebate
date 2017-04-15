@@ -43,6 +43,8 @@ module.exports = function(app, passport) {
         failureRedirect: '/'
     }));
 
+    app.get('/api/login/success');
+
     //logout
     app.get('/api/logout', (req,res) => {
         req.logout();
