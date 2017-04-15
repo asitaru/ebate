@@ -1,4 +1,11 @@
-var app = angular.module('ebate', ['ngRoute', 'ebate.controllers.main', 'ebate.controllers.poll','ebate.services.authentication']);
+var app = angular.module('ebate',
+[
+'ngRoute',
+'ebate.controllers.main',
+'ebate.controllers.poll',
+'ebate.controllers.login',
+'ebate.services.authentication'
+]);
 
 
 app.config(['$routeProvider', '$locationProvider',
@@ -13,6 +20,10 @@ app.config(['$routeProvider', '$locationProvider',
             when('/:pollId', {
                 templateUrl: 'views/poll.html',
                 controller: 'poll'
+            }).
+            when('/api/login/success', {
+                template: " ",
+                controller: 'login'
             })
         }
     ]);

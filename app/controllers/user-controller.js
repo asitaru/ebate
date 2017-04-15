@@ -9,16 +9,6 @@ let populateUser = (user, profile, token) => {
     user.displayName = profile.displayName;
 };
 
-//route middleware to check if user is logged in
-module.exports.isLoggedIn = (req, res, next) => {
-    //if user is authenticated, carry on
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    //return to homepage if not
-    res.redirect('/');
-};
-
 module.exports = function(passport) {
 
     // serialize the user for the session

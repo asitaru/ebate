@@ -1,5 +1,5 @@
 angular.module('ebate.controllers.poll', ["chart.js"])
-    .controller('poll', function($scope,$route, $http, $routeParams, $location, $timeout) {
+    .controller('poll', function( $scope, $route, $http, $routeParams, $location, $timeout) {
         //get the poll id from url
         $scope.pollId = $routeParams.pollId;
 

@@ -11,6 +11,7 @@ angular.module('ebate.services.authentication', [])
 
         logout = function() {
             $window.localStorage.removeItem('user');
+            $http.get('/api/logout');
         };
 
         isLoggedIn = function() {
@@ -23,8 +24,8 @@ angular.module('ebate.services.authentication', [])
         }
 
         return {
-            saveToken: saveUser,
-            getToken: getUser,
+            saveUser: saveUser,
+            getUser: getUser,
             isLoggedIn: isLoggedIn,
             logout: logout
         };

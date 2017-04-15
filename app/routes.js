@@ -4,6 +4,16 @@ const deleteController = require('./controllers/delete-controller');
 const voteController = require('./controllers/vote-controller');
 const userController = require('./controllers/user-controller');
 
+//route middleware to check if user is logged in
+let ensureAuthenticated = (req, res, next) => {
+    //if user is authenticated, carry on
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    //return to homepage if not
+    res.redirect('/');
+};
+
 module.exports = function(app, passport) {
     //get all ebates
     app.get('/api/ebates', getController);
@@ -28,8 +38,8 @@ module.exports = function(app, passport) {
 
     //login with twitter
     app.get('/api/login', passport.authenticate('twitter'));
-    app.get('/api/login/success', passport.authenticate('twitter', {
-        successRedirect: '/',
+    app.get('/api/login/callback', passport.authenticate('twitter', {
+        successRedirect: '/api/login/success',
         failureRedirect: '/'
     }));
 
@@ -40,9 +50,9 @@ module.exports = function(app, passport) {
     });
 
     //test route
-    app.get('/test', (req,res) => {
+    app.get('/fetchUser', ensureAuthenticated, (req,res) => {
         res.send(req.user);
-    })
+    });
 
     //main route
     app.get('/', (req,res) => {
