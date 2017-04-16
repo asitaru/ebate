@@ -1,7 +1,13 @@
-angular.module('ebate.controllers.main', ['ngCookies'])
-    .controller('main', function($scope, $http, $location, $window, $cookies, Authentication) {
+angular.module('ebate.controllers.main', [])
+    .controller('main', function($scope, $http, $location, $window, Authentication) {
 
-        console.log($cookies.getAll());
+        $scope.userPromise = Authentication.fetchUser();
+
+        $scope.userPromise.then(function(response) {
+            Authentication.saveUser(response.user);
+            console.log($scope.authenticated);
+        });
+
         $scope.authenticated = Authentication.isLoggedIn();
 
         //Get all the ebates from the database

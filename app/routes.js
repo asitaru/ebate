@@ -45,15 +45,10 @@ module.exports = function(app, passport) {
 
 
     //logout
-    app.get('/api/logout', (req,res) => {
-        req.logout();
-        res.redirect('/');
-    });
+    app.get('/api/logout', userController.logout);
 
-    //test route
-    app.get('/fetchUser', ensureAuthenticated, (req,res) => {
-        res.send(req.user);
-    });
+    //route for fetching user info
+    app.get('/fetchUser',  userController);
 
     //main route
     app.get('/', (req,res) => {

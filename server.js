@@ -21,7 +21,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //passport configuration
-require('./app/controllers/user-controller')(passport);
+require('./config/passport')(passport);
 
 //required for passport
 app.use(session({

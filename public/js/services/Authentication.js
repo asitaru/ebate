@@ -1,6 +1,14 @@
 angular.module('ebate.services.authentication', [])
     .service('Authentication', function( $http, $window) {
 
+        var fetchUser = function() {
+
+            return $http.get('/fetchUser').then(function(response) {
+
+                return response.user;
+            });
+        };
+
         var saveUser = function(user) {
             $window.localStorage['user'] = user;
         };
@@ -24,6 +32,7 @@ angular.module('ebate.services.authentication', [])
         }
 
         return {
+            fetchUser: fetchUser,
             saveUser: saveUser,
             getUser: getUser,
             isLoggedIn: isLoggedIn,
