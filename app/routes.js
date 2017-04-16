@@ -38,11 +38,13 @@ module.exports = function(app, passport) {
 
     //login with twitter
     app.get('/api/login', passport.authenticate('twitter'));
-    app.get('/api/login/callback', passport.authenticate('twitter', {
-        successRedirect: '/',
-        failureRedirect: '/'
-    }));
-
+    app.get('/api/login/callback',
+        passport.authenticate('twitter', { failureRedirect: '/'}),
+        (req,res) => {
+            userController.sendUser(req.user);
+            res.redirect('/');
+        }
+    );
 
     //logout
     app.get('/api/logout', userController.logout);

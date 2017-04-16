@@ -4,8 +4,10 @@ angular.module('ebate.controllers.main', [])
         $scope.userPromise = Authentication.fetchUser();
 
         $scope.userPromise.then(function(response) {
-            Authentication.saveUser(response.user);
-            console.log($scope.authenticated);
+            if(response.user && !Authentication.isLoggedIn()){
+                Authentication.saveUser(response.user);
+                console.log($scope.authenticated);
+            }
         });
 
         $scope.authenticated = Authentication.isLoggedIn();
