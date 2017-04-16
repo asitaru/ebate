@@ -1,6 +1,8 @@
 //returns the user after receiving the response from twitter api
 
-module.exports.sendUser;
+module.exports.sendUser = function(user){
+    return user;
+};
 
 let userPromise = new Promise((resolve,reject) => {
     sendUser = resolve;
@@ -9,7 +11,7 @@ let userPromise = new Promise((resolve,reject) => {
 module.exports = async(req, res) => {
     userPromise.then(user => {
         res.send(user)
-    });    
+    });
 }
 
 module.exports.logout = (req,res) => {
