@@ -1,5 +1,5 @@
 angular.module('ebate.controllers.login', [])
-    .controller('login', function( $scope, $location, $timeout, Authentication) {
+    .controller('login', function( $scope, $http, $location, $timeout, Authentication) {
 
         $http.get('/api/login/success').then(
 

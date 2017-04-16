@@ -39,13 +39,10 @@ module.exports = function(app, passport) {
     //login with twitter
     app.get('/api/login', passport.authenticate('twitter'));
     app.get('/api/login/callback', passport.authenticate('twitter', {
-        successRedirect: '/api/login/success',
+        successRedirect: '/',
         failureRedirect: '/'
     }));
 
-    app.get('/api/login/success', (req,res) => {
-        res.send(req.user);
-    });
 
     //logout
     app.get('/api/logout', (req,res) => {
@@ -54,9 +51,9 @@ module.exports = function(app, passport) {
     });
 
     //test route
-    // app.get('/fetchUser', ensureAuthenticated, (req,res) => {
-    //     res.send(req.user);
-    // });
+    app.get('/fetchUser', ensureAuthenticated, (req,res) => {
+        res.send(req.user);
+    });
 
     //main route
     app.get('/', (req,res) => {
