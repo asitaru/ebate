@@ -1,14 +1,12 @@
 //returns the user after receiving the response from twitter api
 
-module.exports.sendUser = function(user){
-    return user;
-};
+module.exports.sendUser;
 
 let userPromise = new Promise((resolve,reject) => {
     sendUser = resolve;
 });
 
-module.exports = async(req, res) => {
+module.exports.fetchUser = (req, res) => {
     userPromise.then(user => {
         res.send(user)
     });
