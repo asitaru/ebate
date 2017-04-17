@@ -12,12 +12,13 @@ module.exports = (req,res) => {
     //try saving the ebate
      ebate.save().then(
          data => {
-            console.log(data)
-            //return a succesfull message upon insertion
-            res.json({ message: 'Ebate created!'});
-        },
-        //if there is an error creating, send the error
-        err => res.status(500).json({ error: err})
+            //redirect to the newly created ebate
+            res.redirect('/#!/ebate/' + data._id);
+         },
+         //if there is an error creating, send the error
+         err => {
+             res.status(500).json({ error: err})
+         }
      )
 
 }
