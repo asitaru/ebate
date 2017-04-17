@@ -13,7 +13,7 @@ module.exports = (req,res) => {
      ebate.save().then(
          data => {
             //redirect to the newly created ebate
-            res.redirect('/#!/ebate/' + data._id);
+            res.send(data._id);
          },
          //if there is an error creating, send the error
          err => {
