@@ -1,16 +1,13 @@
 angular.module('ebate.controllers.login', [])
-    .controller('login', function( $scope, $http, $location, $timeout, Authentication) {
+    .controller('login', function( $scope, $location, $http, $routeParams, Authentication) {
 
-        $http.get('/api/login/success').then(
+        if(!Authentication.isLoggedIn()){
+            Authentication.saveToken($routeParams.token);
+            $http.get('api/me').then(
+                function(user){
+                    Authentication.user = user;
+                }
+            ).then($location.path('/'))
+        }
 
-            user => {
-                Authentication.saveUser(user);
-                $location.path('/');
-            },
-            err => {
-                alert("You are not logged in!");
-                $timeout($location.path('/'), 1000);
-            }
-        )
-
-    })
+    });

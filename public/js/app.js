@@ -21,7 +21,7 @@ app.config(['$routeProvider', '$locationProvider',
                 templateUrl: 'views/poll.html',
                 controller: 'poll'
             }).
-            when('/api/login/success', {
+            when('/user/:token', {
                 template: " ",
                 controller: 'login'
             })

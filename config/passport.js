@@ -1,18 +1,22 @@
 let twitterStrategy = require('passport-twitter').Strategy;
 let User = require('../app/models/user');
 const twitterKeys = require('./auth');
+const jwt = require('jsonwebtoken');
+
 
 //helper function that handles the user creation using information retrieved by twitter
 let populateUser = (user, profile, token) => {
     user.userId = profile.id;
     user.token = token;
     user.displayName = profile.displayName;
+    user.username = profile.username;
 };
 
 module.exports = function(passport) {
 
     // serialize the user for the session
     passport.serializeUser((user, done) => {
+        token = jwt.sign({ username: user.username }, "asdhjasgd", { expiresIn: '24h'});
         done(null, user.id);
     });
 

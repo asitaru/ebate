@@ -5,7 +5,8 @@ mongoose.Promise = global.Promise;
 const UserSchema = new Schema({
     userId: String,
     token: String,
-    displayName: String
+    displayName: String,
+    username: String
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);

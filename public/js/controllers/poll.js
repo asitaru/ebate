@@ -1,7 +1,11 @@
 angular.module('ebate.controllers.poll', ["chart.js"])
-    .controller('poll', function( $scope, $route, $http, $routeParams, $location, $timeout) {
+    .controller('poll', function( $scope, $route, $http, $routeParams, $location, $timeout, Authentication) {
         //get the poll id from url
         $scope.pollId = $routeParams.pollId;
+
+        $scope.checkUserState = function(){
+            return Authentication.isLoggedIn();
+        };
 
         //function that builds the chart
         $scope.chartConstructor = function(){

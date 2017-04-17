@@ -1,42 +1,32 @@
 angular.module('ebate.services.authentication', [])
     .service('Authentication', function( $http, $window) {
 
-        var fetchUser = function() {
+        var user;
 
-            return $http.get('/fetchUser').then(function(response) {
-
-                return response.user;
-            });
+        var saveToken = function(token) {
+            $window.localStorage['token'] = token;
         };
 
-        var saveUser = function(user) {
-            $window.localStorage['user'] = user;
-        };
-
-        var getUser = function() {
-            return $window.localStorage['user'];
+        var getToken = function() {
+            return $window.localStorage['token'];
         };
 
         logout = function() {
-            $window.localStorage.removeItem('user');
+            $window.localStorage.removeItem('token');
             $http.get('/api/logout');
+            user = undefined;
         };
 
         isLoggedIn = function() {
-            if(getUser()) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
+            return getToken();
+        };
 
         return {
-            fetchUser: fetchUser,
-            saveUser: saveUser,
-            getUser: getUser,
+            user: user,
+            saveToken: saveToken,
+            getToken: getToken,
             isLoggedIn: isLoggedIn,
             logout: logout
         };
 
-    })
+    });

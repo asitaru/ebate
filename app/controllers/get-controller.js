@@ -18,7 +18,7 @@ module.exports = async(req, res) => {
         err => res.status(500).json({ error: err});
     }
 
-};
+}
 
 //selects one ebate based on id
 module.exports.singleQuery = async(req, res) => {

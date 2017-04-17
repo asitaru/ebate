@@ -9,6 +9,10 @@
             <div class="row spacer" ng-repeat="option in ebate.options">
                 <button class="btn btn-default btn-block" ng-click=vote(option)>Vote for: {{option.name}}</button>
             </div>
+
+            <div class="row spacer">
+                <button class="btn btn-default btn-block" ng-show="checkUserState()" >Add new option</button>
+            </div>
         </div>
 
 
