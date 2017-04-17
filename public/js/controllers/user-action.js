@@ -39,8 +39,7 @@ angular.module('ebate.controllers.user-action', [])
             if(formValid){
                 $http.post('/api/ebates', request).then(
                     function(data) {
-                        console.log(data)
-                        // $location.path('/ebate/' + data);
+                        $location.path('/ebate/' + data.data._id);
                     }
                 )
             }
