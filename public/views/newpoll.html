@@ -1,0 +1,33 @@
+<div>
+    <div class="row jumbotron ">
+        <div class="row spacer">
+            <h1>Create your own ebate!</h1>
+        </div>
+
+        <div class="row spacer">
+            <p id="form-text">Title:</p>
+            <input class="form-control" placeholder="Please give your ebate a title" ng-model="ebateName">
+        </div>
+
+        <div class="row spacer">
+            <p id="form-text">Options (please add at least 2): </p>
+        </div>
+
+        <div class="row medium-spacer" ng-repeat="option in options">
+            <input class="form-control" placeholder="Option {{ $index + 1}}: " ng-model="option.name">
+        </div>
+
+        <div class="row big-spacer">
+            <div class="col-xs-4">
+                <button class="btn btn-primary btn-block left-align text-center" ng-click="postEbate()"> Create the ebate! </button>
+            </div>
+            <div class="col-xs-4">
+                <button class="btn btn-success btn-block text-center" ng-click="addOption()">Add additional option</button>
+            </div>
+            <div class="col-xs-4">
+                <button class="btn btn-danger btn-block right-align text-center"  ng-if="options.length > 2" ng-click="removeOption()" >Remove last option</button>
+            </div>
+
+        </div>
+    </div>
+</div>

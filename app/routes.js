@@ -22,17 +22,17 @@ module.exports = function(app, passport) {
     //get one ebate
     app.get('/api/ebates/:ebate_id', getController.singleQuery)
 
-    //get ebates by user TODO
-    app.get('/api/ebates/user/:username', getController.userQuery);
+    //get ebates by user
+    app.put('/api/ebates-by-user', getController.userQuery);
 
     //create an ebate
     app.post('/api/ebates/', postController);
 
     //vote in the ebate
-    app.put('/api/ebates/:ebate_id', voteController);
+    app.put('/api/ebates/:ebate_id', voteController.existingOption);
 
     //add an option
-    app.put('api/ebates/:ebate_id/new', voteController.newOption);
+    app.put('/api/ebates/:ebate_id/new', voteController.newOption);
 
     //delete the ebate
     app.delete('/api/ebates/:ebate_id', deleteController);

@@ -4,14 +4,26 @@ mongoose.Promise = global.Promise;
 
 //The vote categories
 const OptionSchema = new Schema({
-    name: String,
-    votes: Number
+    name: {
+        type: String,
+        required: true
+    },
+    votes: {
+        type: Number,
+        required: true
+    }
 }, { _id: false });
 
 //The entire poll schema
 const EbateSchema = new Schema({
-    name: String,
-    ownerId: String,
+    name: {
+        type: String,
+        required: true
+    },
+    ownerId: {
+        type: String,
+        required: true
+    },
     options: {
         type: [OptionSchema],
         required: true

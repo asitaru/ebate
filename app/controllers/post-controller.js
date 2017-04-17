@@ -20,4 +20,4 @@ module.exports = async(req,res) => {
         //if there is an error creating, send the error
         err => res.status(500).json({ error: err});
     }
-};
+}

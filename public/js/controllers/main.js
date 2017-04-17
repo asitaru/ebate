@@ -5,10 +5,11 @@ angular.module('ebate.controllers.main', [])
            return Authentication.isLoggedIn();
         };
 
-        if($scope.checkUserState()){
-            $scope.user = Authentication.user;
-            console.log($scope.user);
-        }
+        $scope.displayName = function(){
+            if($scope.checkUserState()) {
+                return Authentication.getUser().displayName;
+            }
+        };
 
         //Get all the ebates from the database
         $http.get('/api/ebates').then(
@@ -22,9 +23,18 @@ angular.module('ebate.controllers.main', [])
                 console.log('Error: ' +  err);
             });
 
-        //
+        //Select an ebate
         $scope.selectEbate = function(ebate){
-            $location.path("/" + ebate._id);
+            $location.path("/ebate/" + ebate._id);
+        };
+
+        //Create a new ebate
+        $scope.newEbate = function(){
+            $location.path("/new-ebate");
+        };
+
+        $scope.userPolls = function(){
+            $location.path('/user-polls');
         };
 
         $scope.login = function() {

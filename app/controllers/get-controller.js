@@ -56,18 +56,22 @@ module.exports.singleQuery = async(req, res) => {
                 console.log(ebate);
             }
         //return any db error
-        }).catch( err => res.status(500).json({ error: err}))
+        }).catch( err => res.status(500).json({ error: err }))
 
-};
+}
 
 //selects all ebates created by an user
-module.exports.userQuery = async(req, res) => {
+module.exports.userQuery = (req, res) => {
 
-    try {
 
-    }
-    catch(err) {
-        //Send any errors
-        err => res.status(500).json({ error: err});
-    }
-};
+    Ebate.find({'ownerId': req.body.userId})
+        .then(ebates => {
+            if(!ebates){
+                res.status(400).json({ error : "No ebates in the database yet!" });
+            }
+            else {
+                res.json(ebates);
+            }
+        }).catch( err=> res.status(500).json({ error: err }))
+
+}

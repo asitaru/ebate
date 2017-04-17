@@ -4,6 +4,7 @@ var app = angular.module('ebate',
 'ebate.controllers.main',
 'ebate.controllers.poll',
 'ebate.controllers.login',
+'ebate.controllers.user-action',
 'ebate.services.authentication'
 ]);
 
@@ -17,13 +18,21 @@ app.config(['$routeProvider', '$locationProvider',
                 templateUrl: 'views/home.html',
                 controller: 'main'
             }).
-            when('/:pollId', {
+            when('/ebate/:pollId', {
                 templateUrl: 'views/poll.html',
                 controller: 'poll'
             }).
             when('/user/:token', {
                 template: " ",
                 controller: 'login'
+            }).
+            when('/new-ebate', {
+                templateUrl: 'views/newpoll.html',
+                controller: 'user-action'
+            }).
+            when('/user-polls', {
+                templateUrl: 'views/user-polls.html',
+                controller: 'user-action'
             })
         }
     ]);

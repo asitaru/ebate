@@ -18,6 +18,7 @@
     <script src="js/controllers/main.js"></script>
     <script src="js/controllers/poll.js"></script>
     <script src="js/controllers/login.js"></script>
+    <script src="js/controllers/user-action.js"></script>
     <script src="js/services/Authentication.js"></script>
     <script src="js/app.js"></script>
 
@@ -38,10 +39,10 @@
 
             <!-- Angular routing -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" ng-show="checkUserState()">My Polls</a></li>
-                <li><a href="#" ng-show="checkUserState()">New Poll</a></li>
+                <li><a href="/#!/user-polls" ng-show="checkUserState()">My Polls</a></li>
+                <li><a href="/#!/new-ebate" ng-show="checkUserState()" >New Ebate</a></li>
                 <li><a href="#" ng-click="login()" ng-hide="checkUserState()">Sign In</a></li>
-                <li><a href="#" ng-click="logout()" ng-show="checkUserState()">{{user.data.displayName}}</a></li>
+                <li><a href="#" ng-click="logout()" ng-show="checkUserState()">{{ displayName() }}</a></li>
             </ul>
         </nav>
 

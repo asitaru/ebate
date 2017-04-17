@@ -1,11 +1,11 @@
 <div class="jumbotron">
-    <div class="row">
+    <div>
         <h1 class="text-center">Ebate</h1>
     </div>
-    <div class="row">
-        <p class="text-center"> Select a poll to see the results and vote,<a>&nbsp; or create your own!</a></p>
+    <div class="row big-spacer">
+        <p class="text-center"> Select an ebate to see the results and vote, <span ng-hide="checkUserState()">or sign-in to make your own</span><a ng-show="checkUserState()">or create your own!</a></p>
     </div>
-    <div ng-repeat="ebate in ebates">
+    <div class="row" ng-repeat="ebate in ebates">
         <div class="row">
             <div class="col-xs-12">
                 <button class="btn btn-default btn-lg btn-block" ng-click = selectEbate(ebate)>

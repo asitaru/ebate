@@ -1,0 +1,15 @@
+<div class="row jumbotron">
+    <div class="row central-spacer" ng-hide="userEbates">
+        <h2 class="text-center"> Oops, you don't have any ebates yet, <a href="/#!/new-ebate">go ahead and make one right now!</a></h2>
+    </div>
+    <div ng-repeat="ebate in userEbates">
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-default btn-lg btn-block" ng-click = selectEbate(ebate)>
+                    <span class="glyphicon glyphicon-check pull-left" aria-hidden="true"></span>
+                    {{ebate.name}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

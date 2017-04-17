@@ -11,7 +11,11 @@
             </div>
 
             <div class="row spacer">
-                <button class="btn btn-default btn-block" ng-show="checkUserState()" >Add new option</button>
+                <input class="form-control text-center" formenctype="application/x-www-form-urlencoded" ng-show= "newOptionState" ng-model="userOption" placeholder="custom option">
+            </div>
+
+            <div class="row spacer">
+                <button class="btn btn-success btn-block" ng-show="checkUserState()" ng-click ="newOption()" >Vote with my own option</button>
             </div>
         </div>
 

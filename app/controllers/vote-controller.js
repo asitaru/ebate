@@ -16,7 +16,7 @@ let storeVoters = (votersArray, ip, user) => {
     }
 };
 
-module.exports = async(req,res) => {
+module.exports.existingOption = async(req,res) => {
     try {
         //find the ebate in the database using the id
         let ebate = await Ebate.findById(req.params.ebate_id);
@@ -66,7 +66,7 @@ module.exports.newOption = async(req,res) => {
         if(!uniqueVote(ebate.ipAndUsersVoted, ip, req.body.userId) ) {
             res.json({ error: "not unique!" });
             return
-        };
+        }
 
         //add the option, vote and insert ip/username
         ebate.options.push({ name:req.body.option , votes: 1 });

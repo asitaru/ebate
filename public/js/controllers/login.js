@@ -5,9 +5,10 @@ angular.module('ebate.controllers.login', [])
             Authentication.saveToken($routeParams.token);
             $http.get('api/me').then(
                 function(user){
-                    Authentication.user = user;
+                    Authentication.saveUser(user);
+                    $location.path('/');
                 }
-            ).then($location.path('/'))
+            )
         }
 
     });

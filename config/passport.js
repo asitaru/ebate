@@ -16,7 +16,7 @@ module.exports = function(passport) {
 
     // serialize the user for the session
     passport.serializeUser((user, done) => {
-        token = jwt.sign({ username: user.username }, "asdhjasgd", { expiresIn: '24h'});
+        token = jwt.sign({ userId: user.id }, "asdhjasgd", { expiresIn: '24h'});
         done(null, user.id);
     });
 

@@ -6,3 +6,29 @@
 .spacer {
     margin-top: 10px;
 }
+
+.medium-spacer {
+    margin-top: 20px;
+}
+
+.big-spacer {
+    margin-top: 30px;
+}
+
+.central-spacer {
+    margin-top: 20%;
+    margin-bottom: 20%;
+}
+
+#form-text {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.left-align{
+    margin-left: -12px;
+}
+
+.right-align{
+    width: 105%;
+}
