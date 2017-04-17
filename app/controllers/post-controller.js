@@ -7,13 +7,12 @@ module.exports = (req,res) => {
     ebate.name = req.body.name;
     ebate.ownerId = req.body.userId;
     req.body.options.forEach( option => ebate.options.push({name: option, votes: 0}));
-    console.log(ebate);
 
     //try saving the ebate
      ebate.save().then(
          data => {
             //redirect to the newly created ebate
-            res.send(data._id);
+            res.send(data);
          },
          //if there is an error creating, send the error
          err => {
