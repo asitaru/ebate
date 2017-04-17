@@ -3,7 +3,7 @@
         <h1 class="text-center">Ebate</h1>
     </div>
     <div class="row big-spacer">
-        <p class="text-center"> Select an ebate to see the results and vote, <span ng-hide="checkUserState()">or sign-in to make your own</span><a ng-show="checkUserState()">or create your own!</a></p>
+        <p class="text-center"> Select an ebate to see the results and vote, <span ng-hide="checkUserState()">or sign-in to make your own</span><a href= "/#!/new-ebate" ng-show="checkUserState()">or create your own!</a></p>
     </div>
     <div class="row" ng-repeat="ebate in ebates">
         <div class="row">
