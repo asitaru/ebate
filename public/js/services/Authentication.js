@@ -1,8 +1,9 @@
 angular.module('ebate.services.authentication', [])
-    .service('Authentication', function( $http, $window) {
+    .service('Authentication', function( $http, $window, $location) {
 
         var saveUser = function(user){
             $window.localStorage['user'] = JSON.stringify(user);
+            $location.path('/user-polls');
         };
 
         var getUser = function(){
