@@ -6,7 +6,9 @@
   "scripts": {
     "postinstall": "bower install",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,8 @@
     "method-override": "^2.3.8",
     "mongoose": "^4.9.3",
     "passport": "^0.3.2",
-    "passport-twitter": "^1.0.4"
-  }
+    "passport-twitter": "^1.0.4",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
